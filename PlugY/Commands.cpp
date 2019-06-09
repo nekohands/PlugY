@@ -14,6 +14,7 @@
 #include "newInterfaces.h"
 #include "newInterface_CubeListing.h"
 #include "extraOptions.h"
+#include <cassert>
 
 bool active_Commands=true;
 
@@ -152,9 +153,9 @@ int STDCALL commands (char* ptText)
 	char command[MAX_CMD_SIZE];
 	ZeroMemory(command,MAX_CMD_SIZE);
 	strncpy(command,ptText,MAX_CMD_SIZE-1);
+	command[MAX_CMD_SIZE - 1] = 0;
 	_strlwr(command);
-
-	if (!strncmp(command, CMD_RENAME, strlen(CMD_RENAME)) && ptClientNameChar != NULL)
+	if (!strncmp(command, CMD_RENAME, strlen(CMD_RENAME)))
 	{
 		char* param = &command[strlen(CMD_RENAME)];
 		int len = strlen(param);
@@ -221,7 +222,6 @@ int STDCALL commands (char* ptText)
 		// Update client
 		log_msg("Rename on Client : %s -> %s\n", ptChar->ptPlayerData->name, param);
 		strcpy(ptChar->ptPlayerData->name, param);
-		strcpy(ptClientNameChar, param);
 		updateServer(US_SAVE);
 		return 0;
 	}
@@ -238,6 +238,7 @@ int STDCALL commands (char* ptText)
 		{
 			D2FogMemDeAlloc(ptStash->name,__FILE__,__LINE__,0);
 			ptStash->name = (char *)malloc(len);//D2FogMemAlloc(len,__FILE__,__LINE__,0);
+			assert(ptStash->name != NULL);
 			strcpy(ptStash->name,&param[1]);
 		} else {
 			D2FogMemDeAlloc(ptStash->name,__FILE__,__LINE__,0);

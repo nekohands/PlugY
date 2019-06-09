@@ -8,7 +8,7 @@
 		Memory cached INI file read/write class to replace legacy MS code
 
 	COPYRIGHT
-		©1999-2004 Ultrafunk (www.ultrafunk.com) - info@ultrafunk.com
+		?999-2004 Ultrafunk (www.ultrafunk.com) - info@ultrafunk.com
 
 ******************************************************************************/
 

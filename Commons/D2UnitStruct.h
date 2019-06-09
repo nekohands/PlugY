@@ -129,7 +129,7 @@ struct Path //(8 dword)
 
 
 struct Inventory
-{                               		//Offset from Code.		Size: 30 à 40
+{                               		//Offset from Code.		Size: 30 ?40
 	DWORD	tag;						//+00	= 0x01020304
 	BYTE	uk1[0x04];					//+04	=? 0
 	Unit*	ptChar;						//+08
@@ -297,7 +297,7 @@ ITEMFLAG_RUNEWORD               = 0x04000000
 	WORD	prefix[3];					//+38
 	WORD	suffix[3];					//+3E
 	BYTE	equipLoc;					//+44
-    /*	emplacement si équipé
+    /*	emplacement si équip?
 	*	00 = noequip/inBelt
 	*   01 = head
 	*	02 = neck
@@ -345,7 +345,9 @@ struct NetClient
 			WORD isHardCoreGame:1;
 		};
 	};
-	BYTE	uk2[0x170];					//+0C
+	BYTE	uk2;						//+0C
+	char	name[0x10];					//+0D
+	BYTE	uk2_0[0x15F];				//+1D
 	BYTE*	savefile;					//+17C
 	DWORD	finalSize;					//+180
 	DWORD	counter;					//+184

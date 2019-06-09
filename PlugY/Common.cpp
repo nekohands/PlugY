@@ -23,202 +23,69 @@ void freeMessage(sWinMessage* msg)
 }
 
 
-LPWSTR getString(LPWSTR eng, LPWSTR esp, LPWSTR deu, LPWSTR fra, LPWSTR por, LPWSTR ita, LPWSTR jpn, LPWSTR kor, LPWSTR sin, LPWSTR chi, LPWSTR pol, LPWSTR rus)
+LPWSTR getString(LPWSTR eng)
 {
-	switch(D2GetLang())
-	{
-		case LNG_ENG: return eng;
-		case LNG_ESP: return esp;
-		case LNG_DEU: return deu;
-		case LNG_FRA: return fra;
-		case LNG_POR: return por;
-		case LNG_ITA: return ita;
-		case LNG_JPN: return jpn;
-		case LNG_KOR: return kor;
-		case LNG_SIN: return sin;
-		case LNG_CHI: return chi;
-		case LNG_POL: return pol;
-		case LNG_RUS: return rus;
-		case LNG_DEF:
-		default: return eng;
-	}
+	return eng;
 }
-#define LANGUAGE(I,ENG,FRA,DEU,ITA,ESP,POL/*,CHI*/) case I : return getString(L##ENG,L##ESP,L##DEU,L##FRA,L##ENG,L##ITA,L##ENG,L##ENG,L##ENG,L##ENG,L##POL,L##ENG)
+#define LANGUAGE(I,ENG) case I : return getString(L##ENG)
 
 LPWSTR getTranslatedString(int stringID)
 {
 	switch(stringID)
 	{
-/*	LANGUAGE2( STR_STATS_UNASSIGN_WITH_LIMIT,
-		"+Alt: ;,+Shift: %d \x70B9\x6570",//"+Alt: Unassign, +Shift: by %d points",
-//		"+Alt: \x91CD\x5206\x914D;,+Shift: %d \x70B9\x6570",//"+Alt: Unassign, +Shift: by %d points",
-		"+Alt: Désallocation, +Shift: par %d points,",
-		"+Alt: Zurücksetzen, +Shift: um %d Punkte",
-		"+Alt: Rimuovi, +Shift: Assegna %d punti",
-		"+Alt: Quita, +Shift: por %d puntos",
-		"+Alt: \37325\20998\37197;,+Shift:%d \28857\25968");
-*/
 	LANGUAGE( STR_STATS_UNASSIGN_WITH_LIMIT,
-		"+Alt: Unassign, +Shift: by %d points",
-		"+Alt: Désallocation, +Shift: par %d points",
-		"+Alt: Zurücksetzen, +Shift: um %d Punkte",
-		"+Alt: Rimuovi, +Shift: Assegna %d punti",
-		"+Alt: Quita, +Shift: por %d puntos",
-		"+Alt: Odejmij, +Shift: %d punktów");
-//		"+Alt: ????, +Shift: %d ??");
+		"+Alt: Unassign, +Shift: by %d points");
 
 	LANGUAGE( STR_STATS_UNASSIGN_WITHOUT_LIMIT,
-		"+Alt: Unassign, +Shift: all remaining points",
-		"+Alt: Désallocation, +Shift: Tous les points restants",
-		"+Alt: Zurücksetzen, +Shift: Alle verbleibenden Punkte",
-		"+Alt: Rimuovi, +Shift: Assegna tutti i punti rimanenti",
-		"+Alt: Quita, +Shift: Todos los puntos restantes",
-		"+Alt: Odejmij, +Shift: wszystkie pozostale punkty");
-//		"+Alt: ????, +Shift: ???");
+		"+Alt: Unassign, +Shift: all remaining points");
 
 	LANGUAGE( STR_STATS_BASE_MIN,
-		"Base: %d (Min: %d)",
-		"Base: %d (Min: %d)",
-		"Basiswert: %d (Min: %d)",
-		"Base: %d (Min: %d)",
-		"Base: %d (Min: %d)",
-		"Bazowo: %d (Minimum: %d)");
-//		"??: %d(??: %d)");
+		"Base: %d (Min: %d)");
 
 	LANGUAGE( STR_SKILLS_UNASSIGN,
-		"Un-allocate all skills points",
-		"Désalloue tous les points d'aptitudes",
-		"Alle Fertigkeitspunkte zurücksetzen",
-		"Rimuovi tutte le abilità",
-		"Quita todos los puntos de habilidades",
-		"Rozdaj od nowa wszystkie punkty umiejetnosci");
-//		"????????");
+		"Un-allocate all skills points");
 
 	LANGUAGE( STR_STASH_PREVIOUS_PAGE,
-		"Previous Page (+shift: First Page)",
-		"Page précédente (+shift: Première page)",
-		"Vorherige Seite (+shift: Erste Seite)",
-		"Pagina Precedente (+shift: Prima Pagina)",
-		"Pagina anterior (+shift: Primera Pagina)",
-		"Poprzednia Strona (+shift: Pierwsza Strona)");
-//		"??? (+shift: ??)");
+		"Previous Page (+shift: First Page)");
 
 	LANGUAGE( STR_STASH_NEXT_PAGE,
-		"Next Page (+shift: Last not empty Page)",
-		"Page suivante (+shift: Dernière page non vide)",
-		"Nächste Seite (+shift: Letzte nicht leere Seite )",
-		"Pagina Successiva (+shift: Ultima Pagina non vuota)",
-		"Pagina Siguiente (+shift: Ultima pagina non vacia)",
-		"Nastepna Strona (+shift: Ostatnia nie pusta Strona)");
-//		"??? (+shift: ?????");
+		"Next Page (+shift: Last not empty Page)");
 
 	LANGUAGE( STR_TOGGLE_TO_PERSONAL,
-		"Toggle to Personal Stash",
-		"Voir coffre personnel",
-		"Wechselt zum persönlichen Goldschatz",
-		"Vai all'Inventario Personale",
-		"Ver el cofre personal",
-		"Przejdz do Skrzyni Osobistej");
-//		"????????");
+		"Toggle to Personal Stash");
 
 	LANGUAGE( STR_TOGGLE_TO_SHARED,
-		"Toggle to Shared Stash",
-		"Voir coffre partagé",
-		"Wechselt zum gemeinsamen Goldschatz",
-		"Vai all'Inventario Condiviso",
-		"Ver el cofre compartido",
-		"Przejdz do Skrzyni Wspólnej");
-//		"????????");
+		"Toggle to Shared Stash");
 
 	LANGUAGE( STR_STASH_PREVIOUS_INDEX,
-		"Previous Index : by %d Pages (+Shift: %d)",
-		"Index précédent : par %d pages (+shift: %d)",
-		"Vorheriger Index: in %d Seiten (+shift: %d)",
-		"Schermata Precedente : Indietro di %d Pagine (+Shift: %d)",
-		"Indice anterior : por %d paginas (+shift: %d)",
-		"Poprzednia Strona : po %d Stron (+Shift: %d)");
-//		"???? : %d ? (+Shift:%d)");
+		"Previous Index : by %d Pages (+Shift: %d)");
 
 	LANGUAGE( STR_STASH_NEXT_INDEX,
-		"Next Index : by %d Pages (+shift: %d)",
-		"Index suivant : par %d pages (+shift: %d)",
-		"Nächster Index: in %d Seiten (+shift: %d)",
-		"Schermata Successiva : Avanti di %d Pagine (+shift: %d)",
-		"Indice siguiente : por %d paginas (+shift: %d)",
-		"Nastepna Strona : po %d Stron (+shift: %d)");
-//		"???? : %d ? (+shift:%d)");
+		"Next Index : by %d Pages (+shift: %d)");
 
 	LANGUAGE( STR_PUT_GOLD,
-		"Put Gold",
-		"Poser de l'Or",
-		"Gib Gold",
-		"Immetti Oro",
-		"Poner oro",
-		"Zdeponuj Zloto");
-//		"????");
+		"Put Gold");
 
 	LANGUAGE( STR_TAKE_GOLD,
-		"Take Gold",
-		"Prendre de l'Or",
-		"Nehme Gold",
-		"Ritira Oro",
-		"Tomar oro",
-		"Wyplac zloto");
-//		"????");
+		"Take Gold");
 
 	LANGUAGE( STR_PERSONAL_PAGE_NUMBER,
-		"Personal Page n°%u",
-		"Page perso n°%u",
-		"Persönliche Seite n°%u",
-		"Pagina Personale n°%u",
-		"Pagina personal n°%u",
-		"Strona Osobista n°%u");
-//		"????? n°%u");
+		"Personal Page n %u");
 
 	LANGUAGE( STR_SHARED_PAGE_NUMBER,
-		"Shared Page n°%u",
-		"Page partagée n°%u",
-		"Gemeinsame Seite n°%u",
-		"Pagina Condivisa n°%u",
-		"Pagina personal n°%u",
-		"Strona Wspólna n°%u");
-//		"????? n°%u");
+		"Shared Page n %u");
 
 	LANGUAGE( STR_NO_SELECTED_PAGE,
-		"No selected page",
-		"Aucune page sélectionnée",
-		"Keine ausgewählte Seite",
-		"Nessuna pagina selezionata",
-		"Ninguna pagina seleccionada",
-		"Nie zaznaczono strony");
-//		"????");
+		"No selected page");
 
 	LANGUAGE( STR_SHARED_GOLD_QUANTITY,
-		"Shared Gold : %u",
-		"Or partagé : %u",
-		"Gemeinsamen Gold : %u",
-		"Oro Condiviso : %u",
-		"Oro compartido : %u",
-		"Wspólne Zloto : %u");
-//		"????: %u");
+		"Shared Gold : %u");
 
 	LANGUAGE( STR_PREVIOUS_PAGE,
-		"Previous Page",
-		"Page précédente",
-		"Vorherige Seite",
-		"Pagina Precedente",
-		"Pagina anterior",
-		"Poprzednia Strona");
-//		"???");
+		"Previous Page");
 
 	LANGUAGE( STR_NEXT_PAGE,
-		"Next Page",
-		"Page suivante",
-		"Nächste Seite",
-		"Pagina Successiva",
-		"Pagina siguiente",
-		"Nastepna Strona");
-//		"???");
+		"Next Page");
 
 	default : return L"";
 	}

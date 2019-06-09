@@ -9,7 +9,7 @@
 
 enum UpdateClientConst
 {
-	UC_SELECT_STASH=0x18,
+	UC_SELECT_STASH = 0x18,
 	UC_SHARED_GOLD,
 	UC_ADD_STAT,
 	UC_ADD_SYNERGY,
@@ -20,7 +20,7 @@ enum UpdateClientConst
 
 enum UpdateServerConst
 {
-	US_UNASSIGN_STR_POINT=0x10,//Don't change these first 8 value
+	US_UNASSIGN_STR_POINT = 0x10,//Don't change these first 8 value
 	US_UNASSIGN_ENE_POINT,
 	US_UNASSIGN_DEX_POINT,
 	US_UNASSIGN_VIT_POINT,
@@ -48,7 +48,14 @@ enum UpdateServerConst
 	US_TEST2,	//For CB
 	US_TEST3,	//For CB
 	US_TOGGLE,
+	US_SAVE,
+	US_RENAME,
 	US_SWAP,
+	US_SWAP0,
+	US_SWAP1,
+	US_SWAP2,
+	US_SWAP3,
+	US_SWAP0_TOGGLE,
 	US_SWAPLAST = 0xFFFF
 };
 

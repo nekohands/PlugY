@@ -8,7 +8,7 @@
 		Memory cached INI file read/write class to replace legacy MS code
 
 	COPYRIGHT
-		©1999-2004 Ultrafunk (www.ultrafunk.com) - info@ultrafunk.com
+		?999-2004 Ultrafunk (www.ultrafunk.com) - info@ultrafunk.com
 
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 
 #include "d2functions.h"
 #include "error.h"
+#include <cassert>
 
 /*
 http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sysinfo/base/getprivateprofilestring.asp
@@ -332,8 +333,10 @@ int INIFile::GetPrivateProfileString(const char *section, const char *key, const
 		}
 	}
 
-	if(!copied && def)
+	if (!copied && def) {
+		assert(dest != NULL);
 		strncpy(dest, def, size);
+	}
 
 	return copied; // Do not include the terminating null character
 }
