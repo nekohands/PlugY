@@ -1,4 +1,4 @@
 #include "StashSort.h"
 
-void parseStashSort(char* buf)
+void loadStashSort(char* filename)
 {}

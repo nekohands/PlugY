@@ -195,6 +195,7 @@ copy "$(TargetPath)" "E:\sync\Diablo2\PlugY.dll"</Command>
     <ClInclude Include="skillPerLevelUp.h" />
     <ClInclude Include="skillsPoints.h" />
     <ClInclude Include="StashCompose.h" />
+    <ClInclude Include="StashItemType.h" />
     <ClInclude Include="StashSort.h" />
     <ClInclude Include="statPerLevelUp.h" />
     <ClInclude Include="statsPoints.h" />
@@ -256,6 +257,7 @@ copy "$(TargetPath)" "E:\sync\Diablo2\PlugY.dll"</Command>
     <ClCompile Include="SkillPerLevelUp.cpp" />
     <ClCompile Include="SkillsPoints.cpp" />
     <ClCompile Include="StashCompose.cpp" />
+    <ClCompile Include="StashItemType.cpp" />
     <ClCompile Include="StashSort.cpp" />
     <ClCompile Include="StatPerLevelUp.cpp" />
     <ClCompile Include="StatsPoints.cpp" />

@@ -1,4 +1,4 @@
 #pragma once
 
 
-void parseStashSort(char* buf);
+void loadStashSort(char* filename);

@@ -39,6 +39,7 @@
 #include "language.h"
 #include "StashSort.h"
 #include "StashCompose.h"
+#include "StashItemType.h"
 extern bool displayGreenSetItemIncludeSharedStash;
 
 
@@ -176,10 +177,12 @@ const char* S_active_LadderRunewords = "ActiveLadderRunewords";
 const char* S_active_EnabledCowPortalWhenCowKingWasKill = "ActiveCowPortalWhenCowKingWasKilled";
 
 const char* S_SORT = "SORT";
-const char* S_Order = "order";
+const char* S_Sort_Config = "Config";
+const char* S_Sort_ItemType = "ItemType";
 
 const char* S_COMPOSE = "COMPOSE";
-const char* S_Formula = "Formula";
+const char* S_Compose_Config = "Config";
+const char* S_Compose_ItemType = "ItemType";
 
 const char* S_DLL = "DLL:\t";
 const char* S_DEFAULT = "DEFAULT:";
@@ -814,15 +817,20 @@ void init_ExtraOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefa
 
 void init_SortOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefaultFile, char* buffer, DWORD maxSize)
 {
-	GET_PRIVATE_PROFILE_STRING(S_SORT, S_Order, "0");
-	parseStashSort(buffer);
-	log_msg("order\t= %s\n", buffer);
+	GET_PRIVATE_PROFILE_STRING(S_SORT, S_Sort_Config, "0");
+	loadStashSort(buffer);
+	log_msg("S_Sort_Config\t= %s\n", buffer);
+
+	GET_PRIVATE_PROFILE_STRING(S_SORT, S_Sort_ItemType, "0");
+	loadStashItemType(buffer);
+	log_msg("S_Sort_ItemType\t= %s\n", buffer);
+	
 }
 void init_ComposeOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefaultFile, char* buffer, DWORD maxSize)
 {
-	GET_PRIVATE_PROFILE_STRING(S_COMPOSE, S_Formula, "0");
-	parseCompose(buffer);
-	log_msg("formula\t= %s\n", buffer);
+	GET_PRIVATE_PROFILE_STRING(S_COMPOSE, S_Compose_Config, "0");
+	loadCompose(buffer);
+	log_msg("S_Compose_Config\t= %s\n", buffer);
 }
 
 

@@ -1,4 +1,4 @@
 #include "StashCompose.h"
 
-void parseCompose(char* buf)
+void loadCompose(char* filename)
 {}

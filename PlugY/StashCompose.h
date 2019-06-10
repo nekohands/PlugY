@@ -1,3 +1,3 @@
 #pragma once
 
-void parseCompose(char* buf);
+void loadCompose(char* filename);
