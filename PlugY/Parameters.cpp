@@ -37,6 +37,8 @@
 #include "extraOptions.h"
 #include "commands.h"
 #include "language.h"
+#include "StashSort.h"
+#include "StashCompose.h"
 extern bool displayGreenSetItemIncludeSharedStash;
 
 
@@ -172,6 +174,12 @@ const char* S_active_EnabledTXTFilesWithMSExcel= "EnabledTXTFilesWhenMSExcelOpen
 const char* S_active_DisplayBaseStatsValue = "ActiveDisplayBaseStatsValue";
 const char* S_active_LadderRunewords = "ActiveLadderRunewords";
 const char* S_active_EnabledCowPortalWhenCowKingWasKill = "ActiveCowPortalWhenCowKingWasKilled";
+
+const char* S_SORT = "SORT";
+const char* S_Order = "order";
+
+const char* S_COMPOSE = "COMPOSE";
+const char* S_Formula = "Formula";
 
 const char* S_DLL = "DLL:\t";
 const char* S_DEFAULT = "DEFAULT:";
@@ -804,6 +812,18 @@ void init_ExtraOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefa
 	log_msg("active_EnabledCowPortalWhenCowKingWasKill= %u\n\n", active_EnabledCowPortalWhenCowKingWasKill);
 }
 
+void init_SortOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefaultFile, char* buffer, DWORD maxSize)
+{
+	GET_PRIVATE_PROFILE_STRING(S_SORT, S_Order, "0");
+	parseStashSort(buffer);
+	log_msg("order\t= %s\n", buffer);
+}
+void init_ComposeOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefaultFile, char* buffer, DWORD maxSize)
+{
+	GET_PRIVATE_PROFILE_STRING(S_COMPOSE, S_Formula, "0");
+	parseCompose(buffer);
+	log_msg("formula\t= %s\n", buffer);
+}
 
 
 void loadParameters()
@@ -853,6 +873,8 @@ void loadParameters()
 			init_UberQuest(iniFile, iniFixedFile, iniDefaultFile, buffer, BUFSIZE);
 			init_NewInterfaces(iniFile, iniFixedFile, iniDefaultFile, buffer, BUFSIZE);
 			init_ExtraOptions(iniFile, iniFixedFile, iniDefaultFile, buffer, BUFSIZE);
+			init_SortOptions(iniFile, iniFixedFile, iniDefaultFile, buffer, BUFSIZE);
+			init_ComposeOptions(iniFile, iniFixedFile, iniDefaultFile, buffer, BUFSIZE);
 		}
 		log_msg("Reading parameters end.\n\n\n");
 	} else {

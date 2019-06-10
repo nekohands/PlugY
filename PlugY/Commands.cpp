@@ -15,6 +15,7 @@
 #include "newInterface_CubeListing.h"
 #include "extraOptions.h"
 #include <cassert>
+#include "commands.h"
 
 bool active_Commands=true;
 
@@ -44,6 +45,9 @@ const char * CMD_DISPLAY_MANA_LIFE = "/dml";
 const char * CMD_DISPLAY_LIFE_MANA = "/dlm";
 const char * CMD_DISPLAY_LIFE = "/dl";
 const char * CMD_DISPLAY_MANA = "/dm";
+const char * CMD_SORT = "/sort";
+const char * CMD_COMPOSE = "/compose";
+
 
 /*
 $+21C8   02020648   |. 6A 01          PUSH 1
@@ -144,6 +148,16 @@ void updateSharedGold(DWORD goldAmount)
 	PCPY->sharedGold = goldAmount;
 }
 
+void updateStashSort()
+{
+	Unit* ptChar = D2GetClientPlayer();
+	log_msg("updateStashSort\n");
+}
+void updateStashCompose()
+{
+	Unit* ptChar = D2GetClientPlayer();
+	log_msg("updateStashCompose\n");
+}
 /****************************************************************************************************/
 
 int STDCALL commands (char* ptText)
@@ -330,6 +344,14 @@ int STDCALL commands (char* ptText)
 	if (!strcmp(command,CMD_DISPLAY_LIFE_MANA) || !strcmp(command,CMD_DISPLAY_MANA_LIFE))
 	{
 		active_AlwaysDisplayLifeMana = !active_AlwaysDisplayLifeMana;
+		return 0;
+	}
+	if (!strcmp(command, CMD_SORT)) {
+		updateStashSort();
+		return 0;
+	}
+	if (!strcmp(command, CMD_COMPOSE)) {
+		updateStashCompose();
 		return 0;
 	}
 

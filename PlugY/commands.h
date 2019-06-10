@@ -16,6 +16,10 @@ void putGold(Unit* ptChar, DWORD amount);
 void takeGold(Unit* ptChar, DWORD amount);
 void updateSharedGold(DWORD goldAmount);
 
+void updateStashSort();
+
+void updateStashCompose();
+
 void Install_Commands();
 
 #endif

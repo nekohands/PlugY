@@ -86,6 +86,10 @@ LPWSTR getTranslatedString(int stringID)
 
 	LANGUAGE( STR_NEXT_PAGE,
 		"Next Page");
+	LANGUAGE(STR_SORT,
+		"Sort Stash");
+	LANGUAGE(STR_COMPOSE,
+		"Compose Item");
 
 	default : return L"";
 	}

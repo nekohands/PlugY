@@ -168,6 +168,12 @@
     <ClInclude Include="..\Commons\updatingConst.h">
       <Filter>Header Files\Commons</Filter>
     </ClInclude>
+    <ClInclude Include="StashSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StashCompose.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -297,6 +303,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SavePath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StashSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StashCompose.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

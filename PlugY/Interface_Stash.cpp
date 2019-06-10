@@ -13,6 +13,7 @@
 #include "infinityStash.h"
 #include "plugYFiles.h"		// Install_PlugYImagesFiles()
 #include <stdio.h>
+#include "commands.h"
 
 static struct
 {
@@ -25,7 +26,9 @@ static struct
 			DWORD previousIndex:1;
 			DWORD nextIndex:1;
 			DWORD putGold:1;
-			DWORD takeGold:1;
+			DWORD takeGold : 1;
+			DWORD sort : 1;
+			DWORD compose : 1;
 		};
 	};
 } isDownBtn;
@@ -44,32 +47,58 @@ int posYNextIndexBtn=-1;
 int posXPutGoldBtn=-1;
 int posYPutGoldBtn=-1;
 int posXTakeGoldBtn=-1;
-int posYTakeGoldBtn=-1;
+int posYTakeGoldBtn = -1;
+int posXSortBtn = -1;
+int posYSortBtn = -1;
+int posXComposeBtn = -1;
+int posYComposeBtn = -1;
 
-DWORD	getXPreviousBtn()		{return RX(posXPreviousBtn<0? D2GetResolution()?0x80:0xAF : posXPreviousBtn);}
-#define	getLPreviousBtn()		32
+#define PreviousIndexBtnPos 0x60
+#define PreviousIndexBtnPosX2 0x8F
+#define	getLPreviousIndexBtn()	21
+#define	getHPreviousIndexBtn()	21
+DWORD	getXPreviousIndexBtn() { return RX(posXPreviousIndexBtn < 0 ? D2GetResolution() ? PreviousIndexBtnPos : PreviousIndexBtnPosX2 : posXPreviousIndexBtn); }//73:SEL_X(0x18, 0x60, 0x8F, 0x60));}
+DWORD	getYPreviousIndexBtn() { return RY(posYPreviousIndexBtn < 0 ? 0x40 : posYPreviousIndexBtn); }
+
+#define PreviousBtnPos ((PreviousIndexBtnPos)+(getLPreviousIndexBtn()))
+#define PreviousBtnPosX2 ((PreviousIndexBtnPosX2)+(getLPreviousIndexBtn())*2)
+#define	getHPreviousBtn()		21
+#define	getLPreviousBtn()		21
+DWORD	getXPreviousBtn()		{return RX(posXPreviousBtn<0? D2GetResolution()? PreviousBtnPos : PreviousBtnPosX2 : posXPreviousBtn);}
 DWORD	getYPreviousBtn()		{return RY(posYPreviousBtn<0 ? 0x40 : posYPreviousBtn);}
-#define	getHPreviousBtn()		32
 
-DWORD	getXNextBtn()			{return RX(posXNextBtn<0 ? D2GetResolution()?0xA0:0xCF :posXNextBtn);}//?169:SEL_X(0x63, 0x63, 0xCF, 0xA0));}
-#define	getLNextBtn()			32
+#define SortPos ((PreviousBtnPos)+(getLPreviousBtn()))
+#define SortPosX2 ((PreviousBtnPosX2)+(getLPreviousBtn())*2)
+#define	getHSortBtn()		21
+#define	getLSortBtn()		21
+DWORD	getXSortBtn() { return RX(posXSortBtn < 0 ? D2GetResolution() ? SortPos : SortPosX2 : posXSortBtn); }
+DWORD	getYSortBtn() { return RY(posYSortBtn < 0 ? 0x40 : posYSortBtn); }
+
+#define ComposeBtnPos ((SortPos)+(getLSortBtn()))
+#define ComposeBtnPosX2 ((SortPosX2)+(getLSortBtn())*2)
+#define	getHComposeBtn()		21
+#define	getLComposeBtn()		21
+DWORD	getXComposeBtn() { return RX(posXComposeBtn < 0 ? D2GetResolution() ? ComposeBtnPos : ComposeBtnPosX2 : posXComposeBtn); }
+DWORD	getYComposeBtn() { return RY(posYComposeBtn < 0 ? 0x40 : posYComposeBtn); }
+
+#define NextBtnPos ((ComposeBtnPos)+(getLComposeBtn()))
+#define NextBtnPosX2 ((ComposeBtnPosX2)+(getLComposeBtn())*2)
+#define	getLNextBtn()			21
+#define	getHNextBtn()			21
+DWORD	getXNextBtn()			{return RX(posXNextBtn < 0 ? D2GetResolution() ? NextBtnPos : NextBtnPosX2 : posXNextBtn); }//?169:SEL_X(0x63, 0x63, 0xCF, 0xA0));}
 DWORD	getYNextBtn()			{return RY(posYNextBtn<0 ? 0x40 : posYNextBtn);}
-#define	getHNextBtn()			32
+
+#define NextIndexBtnPos ((NextBtnPos)+(getLNextBtn()))
+#define NextIndexBtnPosX2 ((NextBtnPosX2)+(getLNextBtn())*2)
+#define	getLNextIndexBtn()		21
+#define	getHNextIndexBtn()		21
+DWORD	getXNextIndexBtn() { return RX(posXNextIndexBtn < 0 ? D2GetResolution() ? NextIndexBtnPos : NextIndexBtnPosX2 : posXNextIndexBtn); }//217:SEL_X(0x128, 0xC0, 0xEF, 0xC0));}
+DWORD	getYNextIndexBtn() { return RY(posYNextIndexBtn < 0 ? 0x40 : posYNextIndexBtn); }
 
 DWORD	getXSharedBtn()			{return RX(posXSharedBtn<0 ? D2GetResolution()?0x10:0x6F :posXSharedBtn);}//17:SEL_X(0xE3, 0xE3, 0x6F, 0x10));}//0xD8
 #define	getLSharedBtn()			32
 DWORD	getYSharedBtn()			{return RY(posYSharedBtn<0 ? 0x40 : posYSharedBtn);}
 #define	getHSharedBtn()			32
-
-DWORD	getXPreviousIndexBtn()	{return RX(posXPreviousIndexBtn<0 ?  D2GetResolution()?0x60:0x8F :posXPreviousIndexBtn);}//73:SEL_X(0x18, 0x60, 0x8F, 0x60));}
-#define	getLPreviousIndexBtn()	32
-DWORD	getYPreviousIndexBtn()	{return RY(posYPreviousIndexBtn<0 ? 0x40 : posYPreviousIndexBtn);}
-#define	getHPreviousIndexBtn()	32
-
-DWORD	getXNextIndexBtn()		{return RX(posXNextIndexBtn<0? D2GetResolution()?0xC0:0xEF : posXNextIndexBtn);}//217:SEL_X(0x128, 0xC0, 0xEF, 0xC0));}
-#define	getLNextIndexBtn()		32
-DWORD	getYNextIndexBtn()		{return RY(posYNextIndexBtn<0 ? 0x40 : posYNextIndexBtn);}
-#define	getHNextIndexBtn()		32
 
 DWORD	getXPutGoldBtn()		{return RX(posXPutGoldBtn<0? 0x1C : posXPutGoldBtn);}
 #define	getLPutGoldBtn()		32
@@ -80,6 +109,7 @@ DWORD	getXTakeGoldBtn()		{return RX(posXTakeGoldBtn<0? 0x105 : posXTakeGoldBtn);
 #define	getLTakeGoldBtn()		32
 DWORD	getYTakeGoldBtn()		{return RY(posYTakeGoldBtn<0 ? 0x1A8 : posYTakeGoldBtn);}
 #define	getHTakeGoldBtn()		32
+
 
 //closeBtn x: D2C=0x113 LOD=0x110(0->0x28)		y: D2C=0x41 LOD=0x40 (-0x23 -> 5)
 
@@ -92,6 +122,8 @@ DWORD	getYTakeGoldBtn()		{return RY(posYTakeGoldBtn<0 ? 0x1A8 : posYTakeGoldBtn)
 #define isOnButtonPutGold(x,y) isOnRect(x, y, getXPutGoldBtn(), getYPutGoldBtn(), getLPutGoldBtn(), getHPutGoldBtn())
 #define isOnButtonTakeGold(x,y) isOnRect(x, y, getXTakeGoldBtn(), getYTakeGoldBtn(), getLTakeGoldBtn(), getHTakeGoldBtn())
 
+#define isOnButtonSortStash(x,y) isOnRect(x, y, getXSortBtn(), getYSortBtn(), getLSortBtn(), getHSortBtn())
+#define isOnButtonComposeStash(x,y) isOnRect(x, y, getXComposeBtn(), getYComposeBtn(), getLComposeBtn(), getHPreviousIndexBtn())
 
 
 void* STDCALL printBtns()
@@ -121,6 +153,14 @@ void* STDCALL printBtns()
 
 	setFrame(&data, 10 + isDownBtn.nextIndex);
 	D2PrintImage(&data, getXNextIndexBtn(), getYNextIndexBtn(), -1, 5, 0);
+
+
+	setFrame(&data, 12 + isDownBtn.sort);
+	D2PrintImage(&data, getXSortBtn(), getYSortBtn(), -1, 5, 0);
+
+
+	setFrame(&data, 14 + isDownBtn.compose);
+	D2PrintImage(&data, getXComposeBtn(), getYComposeBtn(), -1, 5, 0);
 
 	if (active_sharedGold)
 	{
@@ -160,7 +200,18 @@ void* STDCALL printBtns()
 		swprintf(text, getTranslatedString(STR_STASH_NEXT_INDEX) ,nbPagesPerIndex,nbPagesPerIndex2);
 		D2PrintPopup(text, getXNextIndexBtn()+getLNextIndexBtn()/2, getYNextIndexBtn()-getHNextIndexBtn(), WHITE, 1);
 
-	} else if (active_sharedGold && isOnButtonPutGold(mx,my))	{
+	}
+	else if (isOnButtonSortStash(mx, my)) {
+		swprintf(text, getTranslatedString(STR_SORT), nbPagesPerIndex, nbPagesPerIndex2);
+		D2PrintPopup(text, getXSortBtn() + getLSortBtn() / 2, getYSortBtn() - getHSortBtn(), WHITE, 1);
+
+	}
+	else if (isOnButtonComposeStash(mx, my)) {
+		swprintf(text, getTranslatedString(STR_COMPOSE), nbPagesPerIndex, nbPagesPerIndex2);
+		D2PrintPopup(text, getXComposeBtn() + getLComposeBtn() / 2, getYComposeBtn() - getHComposeBtn(), WHITE, 1);
+
+	}
+	else if (active_sharedGold && isOnButtonPutGold(mx, my)) {
 		lpText = getTranslatedString(STR_PUT_GOLD);
 		D2PrintPopup(lpText, getXPutGoldBtn()+getLPutGoldBtn()/2, getYPutGoldBtn()-getHPutGoldBtn(), WHITE, 1);
 
@@ -187,6 +238,11 @@ DWORD STDCALL manageBtnDown(sWinMessage* msg)
 		isDownBtn.previousIndex = 1;
 	else if (isOnButtonNextIndexStash(msg->x,msg->y))
 		isDownBtn.nextIndex = 1;
+	
+	else if (isOnButtonSortStash(msg->x,msg->y))
+		isDownBtn.sort = 1;
+	else if (isOnButtonComposeStash(msg->x, msg->y))
+		isDownBtn.compose = 1;
 	else if (active_sharedGold && isOnButtonPutGold(msg->x,msg->y))
 		isDownBtn.putGold = 1;
 	else if (active_sharedGold && isOnButtonTakeGold(msg->x,msg->y))
@@ -245,7 +301,18 @@ DWORD STDCALL manageBtnUp(sWinMessage* msg)
 			else
 				updateServer(US_SELECT_NEXT_INDEX);
 
-	} else if (active_sharedGold && isOnButtonPutGold(msg->x,msg->y)) {
+	}
+	else if (isOnButtonSortStash(msg->x, msg->y)) {
+		log_msg("push up sort button\n");
+		if (isDownBtn.sort)
+			updateStashSort();
+	}
+	else if (isOnButtonComposeStash(msg->x, msg->y)) {
+		log_msg("push up compose button\n");
+		if (isDownBtn.compose)
+			updateStashCompose();
+	}
+	else if (active_sharedGold && isOnButtonPutGold(msg->x, msg->y)) {
 		log_msg("push up left put gold\n");
 		if (isDownBtn.putGold)
 			updateServer(US_PUTGOLD);
