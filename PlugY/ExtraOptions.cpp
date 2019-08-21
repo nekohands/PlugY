@@ -53,6 +53,11 @@ void lockMouseCursor(int width, int height)
 	log_msg("Lock Mouse Cursor : %i, %i, %i, %i\n", rect.left, rect.top, rect.right, rect.bottom);
 	ClipCursor(&rect);
 }
+void unlockMouseCursor()
+{
+	log_msg("UnLock Mouse Cursor\n");
+	ClipCursor(NULL);
+}
 
 void lockMouseCursor() { lockMouseCursor(ResolutionX, ResolutionY); }
 

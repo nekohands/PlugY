@@ -42,4 +42,5 @@ void Install_EnabledCowPortalWhenCowKingWasKill();
 
 void SetWindowedOptions();
 void lockMouseCursor();
+void unlockMouseCursor();
 #endif

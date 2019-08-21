@@ -25,7 +25,7 @@ void STDCALL printPlugYVersion(void** childrens, DWORD* sgnNumChildren)
 		SetWindowedOptions();
 	if (active_PrintPlugYVersion)
 	{
-		char buf[20];
+		char buf[64];
 		void* textbox = D2CreateTextBox(newTextBoxData);
 		childrens[*sgnNumChildren] = textbox;
 		d2_assert((*sgnNumChildren)++ >= 40, "sgnNumChildren < MAX_CHILDREN", __FILE__, __LINE__);

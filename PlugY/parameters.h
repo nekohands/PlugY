@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define PLUGY_VERSION "10.02"
+#define PLUGY_VERSION "10.02(single player modify)"
 
 #define LOG_FILE "PlugY.log"
 
