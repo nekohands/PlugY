@@ -768,7 +768,7 @@ void init_ExtraOptions(INIFile* iniFile, INIFile* iniFixedFile, INIFile* iniDefa
 	nbPlayersCommandByDefault = atoi(buffer);
 	if (version_D2Common == V110)
 		{if (nbPlayersCommandByDefault > 8) nbPlayersCommandByDefault=8;}
-	else if (nbPlayersCommandByDefault > 64) nbPlayersCommandByDefault=64;
+	else if (nbPlayersCommandByDefault > 127) nbPlayersCommandByDefault=127;
 	log_msg("nbPlayersCommandByDefault\t= %d\n", nbPlayersCommandByDefault);
 
 	GET_PRIVATE_PROFILE_STRING(S_EXTRA, S_active_DisplayItemLevel, "0");
